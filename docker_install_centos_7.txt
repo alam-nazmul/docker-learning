@@ -1,0 +1,21 @@
+## To install the latest version of the Docker Engine you need to set up the Docker repository and install the yum-utils package to enable Docker stable repository on the system.
+
+yum install -y yum-utils
+
+yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
+
+
+
+## Now install the newer docker-ce version from the Docker repository and containerd manually, because due to some issues, Red Hat blocked the installation of containerd.io > 1.2.0-3.el7, which is a dependency of docker-ce.
+
+yum install https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm
+
+yum install docker-ce docker-ce-cli
+
+
+
+## After, Docker package has been installed, start the daemon, check its status and enable it system-wide using the below commands:
+
+systemctl start docker; systemctl status docker; systemctl enable docker

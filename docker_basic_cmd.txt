@@ -1,0 +1,43 @@
+## For system-wide information on Docker
+
+docker info
+
+
+## For Docker version
+
+docker version
+
+
+##To search for a Docker image, Ubuntu, for instance, issue the following command:
+
+docker search ubuntu
+
+
+## After you decided on what image you want to run based on your needs, download it locally by running the below command (in this case an Ubuntu image is downloaded and used):
+
+docker pull ubuntu
+
+
+## To list all the available Docker images on your host issue the following command:
+
+docker images
+
+
+## If you don’t need a Docker image anymore and you want to remove it from the host issue the following command:
+
+docker rmi ubuntu
+
+
+##  I could use the docker exec command to execute a command on my docker container. In this case to print the contents of the /etc/hosts file. finally let's look at one more option before we head over to the practice exercises.
+
+docker exec -it <container name> cat /etc/hosts
+
+
+## Run attach and detach cmd
+
+docker run -d kodekloud/simple-webapp
+
+
+## Now if you would like to attach back to the running container later run the docker attach command and specify the name or I.D. of the docker container.
+
+docker attach <container id>
