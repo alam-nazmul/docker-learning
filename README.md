@@ -96,4 +96,7 @@ docker inspect 8ce18649156e
 docker logs 8ce18649156e
 ```
 
-### 
+### Build an image from dockerfile
+```
+docker build --file /home/nazmul/github/docker-learning/create_own_images/docker --tag test_flask
+```
