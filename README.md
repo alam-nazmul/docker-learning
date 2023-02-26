@@ -73,7 +73,7 @@ docker run -p 80:5000 kodekloud/webapp
 ```
 
 ### Remember !!!
-_<extranal port> : <Internal port>. You can't map same port on docker host more than once_
+_extranal port : internal port. You can't map same port on docker host more than once_
 
 ### Default data file store on 
 _/var/lib/mysql_
@@ -84,7 +84,7 @@ docker run -v /opt/datadir:/var/lib/mysql mysql
 ```
 
 ### Remember !!!
-_<extranal vol> : <internal vol>_
+_extranal vol : internal vol_
 
 ### Inspect a container
 ```
