@@ -98,5 +98,20 @@ docker logs 8ce18649156e
 
 ### Build an image from dockerfile
 ```
-docker build --file /home/nazmul/github/docker-learning/create_own_images/docker --tag test_flask
+docker build . --file /home/nazmul/github/docker-learning/create_own_images/docker --tag test_flask
 ```
+
+### Push images on Docker hub
+```
+docker tag test-node1 nazmulalam/test-node1
+docker push nazmulalam/test-node1
+```
+
+### Run with env variable
+```
+docker run -e APP_COLOR=blue flask-env
+```
+
+### Remember !!!
+_ENTRYPOINT is a task, when the container is running_
+
