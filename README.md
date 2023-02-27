@@ -86,7 +86,12 @@ docker run -it centos bash
 
 ### Docker compose file to container
 ```
-docker-compose up
+docker-compose up -d
+```
+
+### Stop containers which are up by compose file
+```
+docker compose down
 ```
 
 ### Link two containers
@@ -202,3 +207,127 @@ docker inspect coustom-isolated
 docker service create --replicas=3 nginx
 ```
 
+### Build or rebuild services
+```
+docker compose build
+```
+
+### Parse, resolve and render compose file in canonical format
+```
+docker compose config	
+```
+
+### Copy files/folders between a service container and the local filesystem
+```
+docker compose cp	
+```
+
+### Creates containers for a service.
+```
+docker compose create
+```
+
+### Stop and remove containers, networks	
+```
+docker compose down	
+```
+
+### Receive real time events from containers.
+```
+docker compose events	
+```
+
+### Execute a command in a running container.
+```
+docker compose exec	
+```
+
+### List images used by the created containers
+```
+docker compose images	
+```
+
+### Force stop service containers.
+```
+docker compose kill	
+```
+
+### View output from containers
+```
+docker compose logs	
+```
+
+### List running compose projects
+```
+docker compose ls	
+```
+
+### Pause services
+```
+docker compose pause
+```
+
+### List containers	
+```
+docker compose ps	
+```
+
+### Print the public port for a port binding.
+```
+docker compose port	
+```
+
+### Pull service images
+```
+docker compose pull
+```
+
+### Push service images	
+```
+docker compose push	
+```
+
+### Restart service containers
+```
+docker compose restart	
+```
+
+### Removes stopped service containers
+```
+docker compose rm	
+```
+
+### Run a one-off command on a service.
+```
+docker compose run	
+```
+
+### Start services
+```
+docker compose start	
+```
+
+### Stop services
+```
+docker compose stop	
+```
+
+### Display the running processes
+```
+docker compose top	
+```
+
+### Unpause services
+```
+docker compose unpause	
+```
+
+### Create and start containers
+```
+docker compose up
+```
+
+### Show the Docker Compose version information	
+```
+docker compose version
+```
