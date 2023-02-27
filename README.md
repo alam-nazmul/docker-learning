@@ -84,6 +84,17 @@ docker attach 8ce18649156e
 docker run -it centos bash
 ```
 
+### Docker compose file to container
+```
+docker-compose up
+```
+
+### Link two containers
+```
+docker run -d --name=vote -p 5000:80 --link redis:redis voting-app
+```
+
+
 ### docker port mapping
 ```
 docker run -p 80:5000 kodekloud/webapp
