@@ -1,0 +1,3 @@
+[submodule "compose/app/compose/app/voting-app"]
+	path = compose/app/compose/app/voting-app
+	url = https://github.com/dockersamples/example-voting-app.git
