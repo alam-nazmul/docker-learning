@@ -1,6 +1,15 @@
 # docker-learning
 I am using podman as an engine
 
+### For Docker version
+```
+docker version
+```
+
+### To search for a Docker image, Ubuntu, for instance, issue the following command:
+```
+docker search ubuntu
+```
 
 ### docker run
 ```
@@ -16,10 +25,18 @@ docker ps
 ```
 docker ps -a
 ```
+### Once the container ID has been obtained, you can start the container again with the command that was used to create it, by issuing the following command:
+```
+docker start 923a720da57f
+```
 
 ### Stop the containers
 ```
 docker stop nginx
+```
+### To stop a running container from the host session issue the following command:
+```
+docker kill 923a720da57f
 ```
 
 ### Remove the container
