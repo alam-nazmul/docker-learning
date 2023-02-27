@@ -169,4 +169,8 @@ docker network create --driver bridge --subnet 182.80.0.0/16 coustom-isolated
 docker inspect coustom-isolated
 ```
 
-### 
+### Deploy multiple replica containers with an image
+```
+docker service create --replicas=3 nginx
+```
+
