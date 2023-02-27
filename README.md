@@ -158,3 +158,15 @@ docker run --mount type=bind, source=/data/mysql, target=/var/lib/mysql mysql
     -   Bridge  docker run ubuntu
     -   None    docker run ubuntu   --network=none
     -   Host    docker run ubuntu   --network=host
+
+### Create docker network
+```
+docker network create --driver bridge --subnet 182.80.0.0/16 coustom-isolated
+```
+
+### Inspect docker network
+```
+docker inspect coustom-isolated
+```
+
+### 
