@@ -1,0 +1,37 @@
+version: "3"
+services:
+  redis:
+    image: redis
+    deploy:
+      replicas: 3
+
+  vote:
+    image: votting-app
+    ports:
+      - 5000:80
+    deploy:
+      replicas: 3
+  
+  data:
+    image: postgres:9.4
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: nazmul
+    deploy:
+      replicas: 3
+    ports:
+      - 5432:5432
+
+  
+  worker:
+    image: worker-app
+    deploy:
+      replicas: 3
+
+  
+  result:
+    image: result-app
+    ports:
+      - 5001:80
+    deploy:
+      replicas: 3
