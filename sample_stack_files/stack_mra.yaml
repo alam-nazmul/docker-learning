@@ -1,0 +1,176 @@
+version: '3'
+services:
+
+  config-server:
+    image: harbor-mra.cellosco.pe/mra/cloud-config@sha256:3091c2311c863e62bec57ad094556b133ee2260e3ae792b7d219656ad695436a
+    ports:
+      - 8888:8888
+    deploy:
+      placement:
+        constraints:
+          - node.role != manager
+          - node.hostname == docker-worker2.cs.net
+        # preferences:
+        #   - spread: docker-worker2.cs.net
+        #   - spread: docker-worker3.cs.net
+      replicas: 1
+    volumes:
+      - mra_config:/var/log/mra/config-server
+    networks:
+      mra_network:
+
+
+  gateway-server:
+    #image: harbor-mra.cellosco.pe/mra/gateway:v2
+    image: harbor-mra.cellosco.pe/mra/gateway@sha256:5641b68772b93047e757e6010b51a7314071b255064a8b20ff24e9978e5554a9
+    ports:
+      - 8070:8070
+    depends_on:
+      - config-server
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == docker-worker1.cs.net
+      replicas: 1
+    volumes:
+      - mra_gateway:/var/log/mra/gateway-server
+    networks:
+      mra_network:
+
+
+  web:
+    #image: harbor-mra.cellosco.pe/mra/web:v1
+    image: harbor-mra.cellosco.pe/mra/web@sha256:99feef89ff5bf629a88bed95871d2e3601c884b73993b3537c0441d3a39e96e9
+    ports:
+      - 80:80
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == docker-worker1.cs.net
+      replicas: 1
+    volumes:
+      - mra_web:/var/log/nginx/
+    networks:
+      mra_network:
+
+
+  auth-server:
+    #image: harbor-mra.cellosco.pe/mra/auth:v2
+    image: harbor-mra.cellosco.pe/mra/auth@sha256:ce4ebade12ea153470fd91e0cc0286a5a09da5c7b9b609f4362d4d5301a53d93
+    ports:
+      - 8080:8080
+    depends_on:
+      - config-server
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == docker-worker1.cs.net
+      replicas: 1
+    volumes:
+      - mra_auth:/var/log/mra/mra-auth-server-0-0
+    networks:
+      mra_network:
+
+
+  loanportfolio:
+    #image: harbor-mra.cellosco.pe/mra/loanportfolio:latest
+    image: harbor-mra.cellosco.pe/mra/loanportfolio@sha256:ad5457b6a8510654c08daee4e33781055c43eac820600bcb97ca13006b2a5436
+    ports:
+      - 8083:8083
+    depends_on:
+      - config-server
+    deploy:
+      placement:
+        constraints:
+          # - node.role != manager
+          - node.hostname == docker-worker2.cs.net
+        # preferences:
+        #   - spread: docker-worker2.cs.net
+        #   - spread: docker-worker3.cs.net
+      replicas: 1
+    volumes:
+      - mra_loanportfolio:/var/log/mra/loanportfolio-0
+    networks:
+      mra_network:
+
+
+  common:
+    #image: harbor-mra.cellosco.pe/mra/common:latest
+    image: harbor-mra.cellosco.pe/mra/common@sha256:54a5d81514d192191dfaaeaf212faf32432fdd4d276831abc2ce322f471e7b0d
+    ports:
+      - 8040:8040
+    depends_on:
+      - config-server
+    deploy:
+      placement:
+        constraints:
+          # - node.role != manager
+          - node.hostname == docker-worker3.cs.net
+        # preferences:
+        #   - spread: docker-worker3.cs.net
+        #   - spread: docker-worker2.cs.net
+      replicas: 1
+    volumes:
+      - mra_common:/var/log/mra/common-0
+    networks:
+      mra_network:
+
+
+  mfi:
+    #image: harbor-mra.cellosco.pe/mra/mfi:latest
+    image: harbor-mra.cellosco.pe/mra/mfi@sha256:020c1a3f3107af5ad4251f8461e62e79c15570814f7ad8f4498d8efd0ff693c1
+    ports:
+      - 8081:8081
+    depends_on:
+      - config-server
+    deploy:
+      placement:
+        constraints:
+          # - node.role != manager
+          - node.hostname == docker-worker3.cs.net
+        # preferences:
+        #   - spread: docker-worker3.cs.net
+        #   - spread: docker-worker2.cs.net
+      replicas: 1
+    volumes:
+      - mra_mfi:/var/log/mra/mfi-0
+    networks:
+      mra_network:
+
+
+  report:
+    #image: harbor-mra.cellosco.pe/mra/report:latest
+    image: harbor-mra.cellosco.pe/mra/report@sha256:7f6673b2dd10ea7c574dc985113b86f80f4eeb346499dbc5d314d10756fc214f
+    ports:
+      - 8898:8898
+    #depends_on:
+    #  - config-server
+    deploy:
+      placement:
+        constraints:
+          # - node.role != manager
+          - node.hostname == docker-worker3.cs.net
+        # preferences:
+        #   - spread: docker-worker3.cs.net
+        #   - spread: docker-worker2.cs.net
+      replicas: 1
+    volumes:
+      - mra_report:/var/log/mra/report-0
+    networks:
+      mra_network:
+
+
+volumes:
+  mra_report:
+  mra_mfi:
+  mra_common:
+  mra_loanportfolio:
+  mra_auth:
+  mra_web:
+  mra_gateway:
+  mra_config:
+
+
+networks:
+    mra_network:
+      driver: overlay
