@@ -1,0 +1,10 @@
+From ubuntu
+
+RUN apt-get update && apt install python3 python3-pip python3-venv -y
+
+RUN pip3 install flask
+
+
+COPY app.py /opt/
+
+ENTRYPOINT FLASK_APP=/opt/app.py flask run
